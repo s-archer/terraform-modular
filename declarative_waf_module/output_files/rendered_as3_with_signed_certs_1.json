@@ -1,0 +1,136 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.22.0",
+        "label": "Demo AWS v1.1",
+        "remark": "Simple AS3 template for Terraform expansion",
+        "demo_tenant": {
+            "class": "Tenant",
+            "app3": {
+                "class": "Application",
+                "HTTPS_app3": {
+                    "class": "Service_HTTPS",
+                    "virtualPort": 443,
+                    "redirect80": false,
+                    "virtualAddresses": [
+                        "10.0.1.37"
+                    ],
+                    "persistenceMethods": [],
+                    "profileMultiplex": {
+                        "bigip": "/Common/oneconnect"
+                    },
+                    "pool": "app3_pool",
+                    "serverTLS": "app3Tls",
+                    "policyWAF": {
+                        "use": "owaspPolicy" 
+                    }
+                },             
+                "app3Tls": {
+                    "class": "TLS_Server",
+                    "certificates": [
+                        {
+                            "certificate": "app3_cert"
+                        }
+                    ],
+                    "tls1_0Enabled": false,
+                    "tls1_1Enabled": false,
+                    "cipherGroup": {
+                        "bigip": "/Common/f5-secure"
+                    }
+                },  
+                "app3_cert": {
+                  "class": "Certificate",
+                  "certificate": "-----BEGIN CERTIFICATE-----\nMIIFVTCCBD2gAwIBAgITAPqfG0o85g+H/kqLDUb1nkII5TANBgkqhkiG9w0BAQsF\nADBZMQswCQYDVQQGEwJVUzEgMB4GA1UEChMXKFNUQUdJTkcpIExldCdzIEVuY3J5\ncHQxKDAmBgNVBAMTHyhTVEFHSU5HKSBBcnRpZmljaWFsIEFwcmljb3QgUjMwHhcN\nMjEwMzE1MTM1ODU2WhcNMjEwNjEzMTM1ODU2WjAaMRgwFgYDVQQDEw9hcHAzLmFy\nY2hmNS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBDJEGQkyB\n4X91Z3peFxbyMDxPV1oEs1HHAXlbd4Go8LxhgsptCc2Awyk/kYf53CUCdUc51EkT\nBoBcOAikfepqV4VKEBT0M9CQh8gIr0wPQg/hLe2YOle/JqaRugmHiVeprJcFt3jL\nNvUtJBbepY4LAbqN4Tm7Rta+5ZcjfIC7+xCQxIVRckV7/W7frMT9R72EZE2P8eaS\nl7Bi4taA9da9l68DFV/AAPkxBSb8mb/dT40FgMmBh7tLhsz7r5tcz6yN97shTsnG\nbKZUva67w4nyVqMNLkJSLvY+YAjedqdAul0qAFEjLbmg7XkBXIt8OOrDdTLZLAH6\n6O1TDQbDlxABAgMBAAGjggJTMIICTzAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYw\nFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFPrQ\nRKwbt+cv+eCHxfTUzN1xl+K9MB8GA1UdIwQYMBaAFN5yekjfMcOmUN+fhSPfVzdL\nXS5lMF0GCCsGAQUFBwEBBFEwTzAlBggrBgEFBQcwAYYZaHR0cDovL3N0Zy1yMy5v\nLmxlbmNyLm9yZzAmBggrBgEFBQcwAoYaaHR0cDovL3N0Zy1yMy5pLmxlbmNyLm9y\nZy8wGgYDVR0RBBMwEYIPYXBwMy5hcmNoZjUuY29tMEwGA1UdIARFMEMwCAYGZ4EM\nAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0dHA6Ly9jcHMubGV0\nc2VuY3J5cHQub3JnMIIBBQYKKwYBBAHWeQIEAgSB9gSB8wDxAHcAsMyD5aX5fWuv\nfAnMKEkEhyrH6IsTLGNQt8b9JuFsbHcAAAF4NmWtsgAABAMASDBGAiEAiH8d6m6B\nm6GFheWnKlCX1jVy2wLmLoHe+Wvin9ZTOIcCIQC4/9XFKoIFyuW3IsRkqduao713\nGI4qGrpbdKF605jU2AB2ACh2GhiQJ/vvPNDWGgGNdrBQVynHp0EbzL32BPRdQmFT\nAAABeDZlswgAAAQDAEcwRQIgO38cZcA8oQE8Xgwr9j9l0Ol6jj/nGPTfZ4K64HJv\nescCIQCRud9An7gh0zzXCRslfwyDTJgkNBMWEPdGbDFn2n71WzANBgkqhkiG9w0B\nAQsFAAOCAQEAlpxlky6GZlhgLvzlI1A9pQrylb45rzY9ttLO5WE0Ov0AnChVKsLs\nvSAF+mojv41FIY0BtqyXtfVFr0O8jzpgf5KV/8xXuv7BaLMSXhXBKlO+v3RuaC22\nJpIDdeFkCowuP8mfxCm6Zht5EsjFIc0uzHaP4n/JipRmlXxVleOW0CUXYMIqhfof\nbz8kGXaZS+45oR/SZ341USgF7xwnMIWVUhA0jkEaB90Ldm08qCcECyUr5Z7F9LYD\n3oThCWDQdrPymA2Xf9vz12f8DV+VA7QOgiJO5URUJx5CiY3SAImOUfqKZP4ZOHqf\n/6EHWxXwStPGb9/jv86osknXhu1OzCB7iQ==\n-----END CERTIFICATE-----",
+                  "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpQIBAAKCAQEAwQyRBkJMgeF/dWd6XhcW8jA8T1daBLNRxwF5W3eBqPC8YYLK\nbQnNgMMpP5GH+dwlAnVHOdRJEwaAXDgIpH3qaleFShAU9DPQkIfICK9MD0IP4S3t\nmDpXvyamkboJh4lXqayXBbd4yzb1LSQW3qWOCwG6jeE5u0bWvuWXI3yAu/sQkMSF\nUXJFe/1u36zE/Ue9hGRNj/HmkpewYuLWgPXWvZevAxVfwAD5MQUm/Jm/3U+NBYDJ\ngYe7S4bM+6+bXM+sjfe7IU7JxmymVL2uu8OJ8lajDS5CUi72PmAI3nanQLpdKgBR\nIy25oO15AVyLfDjqw3Uy2SwB+ujtUw0Gw5cQAQIDAQABAoIBAAYlx0yCufr82lk7\nxVrPs2xc+t6v8m7p4vXKZznxcVCW8fjM+HNGd6PdEygyEzlyuD7+yxjdWMJhV58Y\nLbZHSDrAtL7qCjDIoaCookcchfiKawUJuGI7oWW17mH/oaQOTJtboqeM8yzNgDtC\nxfOrI/3XvUAdZwA+vkHv/8MiiNrzkqN9FkVoSPMxzgt30N1x+WtKTptNV8JWP8R2\na+p7cyln275SXMAWYfjaqgasZff4OfyCfZ4zv/Sjh/OxyS2lTnRHTRhdjl21YPlH\nVxjL8vTNxyfvRbN1jSNqKo3IwsbCCrmvdCCDgbOy42RaDwyjg47VNq9v/yCc3y1I\n/ImTLU0CgYEA07LZ9vhGL/KrX5JOAOX1hI4VQGLpFEiNVvWIs8nBorXb5jWaj75P\n1ic0nWQx7DSquZF48Rn7++XZrosMpo4TjcFHTBDfhAn8Z9GFOWcAnRqrPdi4S7Y1\nef3V+KAZh0BHt5DU8YYhlezG8ZgU9y+q4w1awij2Azivi59jvqBVElMCgYEA6XKe\naT49lM2NRvVQfv/KFP02Kc352VIDONV4gocyh5UKRWhE1NumVcrPU1YdaeCOBA+C\nnc8HfxLRekmpWbUJ4Il/0CHlTudHjwWyVyORRska5uVpnnJcR4K9lhOD8NXIc9SE\nU/bh6qPDhyLwEhEdxLG3JDBPr3FjezJabjensdsCgYEApMhx20i0MXxeIx1Z9F8L\ndiu2pRCYxv4Wbpre1rt0KzgNvCr7bWpA8LxBu0WTin4QajOvBVUpjJEEmVWI+lhb\nJhtNaQs1QK0ZOKKhZeYkVyW8J377LYveImAQXuAYHuxNJrjo2DuFBxNwY/vyTdpf\n1S6+96U0oZtNIYxm8qoQrhsCgYEAxWVd/a/bco+8/ltAjaLMxaK2wfKhadmnT89x\n7y1S1MJ5xOa+DR8OL00mslkG1hhC/bv/vmDo/dJzvuu6f1hN2cdqhBulQmreX1l5\ny6UPmsNCNCuYe5pH3U/374bg8ixTK15v5m/D6BxBoWsxhJVkjoWXTsprFvbSH8Ic\nJUZ6TjECgYEApSnJzvz0c6up1PWGiqQwSbtAdVXMKTQtydPhsA5W5ExxwJkLacs4\n9Kz6CamxY0ysz0EaeWawUxsuqFcXFubgSphJdhoNnaA7UCvLOom7jdgH1LwtaDdO\n2Jwks+/0KaLyjRPMlIgIH0R1LCe+oObbNJBU0IPmK5aVp+k6cjmCcPo=\n-----END RSA PRIVATE KEY-----\n"
+                },
+                "app3_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "aws",
+                            "updateInterval": 1,
+                            "tagKey": "Name",
+                            "tagValue": "nginx-autoscale",
+                            "addressRealm": "private",
+                            "region": "eu-west-1"
+                        }
+                    ]
+                },
+                "owaspPolicy-app3": {
+                    "class": "WAF_Policy",
+                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json?token=AG2GEJJNYTQVHGU4LFH2VMDAJ5X6S",
+                    "ignoreChanges": false,
+                    "enforcementMode": "blocking"
+                }
+            },
+            "app4": {
+                "class": "Application",
+                "HTTPS_app4": {
+                    "class": "Service_HTTPS",
+                    "virtualPort": 443,
+                    "redirect80": false,
+                    "virtualAddresses": [
+                        "10.0.1.69"
+                    ],
+                    "persistenceMethods": [],
+                    "profileMultiplex": {
+                        "bigip": "/Common/oneconnect"
+                    },
+                    "pool": "app4_pool",
+                    "serverTLS": "app4Tls",
+                    "policyWAF": {
+                        "use": "owaspPolicy" 
+                    }
+                },             
+                "app4Tls": {
+                    "class": "TLS_Server",
+                    "certificates": [
+                        {
+                            "certificate": "app4_cert"
+                        }
+                    ],
+                    "tls1_0Enabled": false,
+                    "tls1_1Enabled": false,
+                    "cipherGroup": {
+                        "bigip": "/Common/f5-secure"
+                    }
+                },  
+                "app4_cert": {
+                  "class": "Certificate",
+                  "certificate": "-----BEGIN CERTIFICATE-----\nMIIFUzCCBDugAwIBAgITAPpEARfH2GWvHRfmhLWg7NgOzDANBgkqhkiG9w0BAQsF\nADBZMQswCQYDVQQGEwJVUzEgMB4GA1UEChMXKFNUQUdJTkcpIExldCdzIEVuY3J5\ncHQxKDAmBgNVBAMTHyhTVEFHSU5HKSBBcnRpZmljaWFsIEFwcmljb3QgUjMwHhcN\nMjEwMzE1MTM1ODU2WhcNMjEwNjEzMTM1ODU2WjAaMRgwFgYDVQQDEw9hcHA0LmFy\nY2hmNS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC0BRTrY1FL\nFvMkgJteD3Ee2CkpRhDJRAoGZ+A3yJ6Uv+vZ4R0xiQg8/1Gi4McaxfI44RQmlnlx\n44hRkwI25LLc6z76K8PzrNiBBDLSwc7ZZv0/8wbM7pbpmuOBZrB8swWffsW/fxI4\n2WGiHVroid+OLpXyeQ5LCCJcc02FuUI/VHYo9B76zmCNVV0COAvGwhMejV79ZQpl\nCrB+yAB08crKSxX7Bv1cStqHOsSdtgES0q+Bzom+DZYDa4B7zO3X3WOGOlReC1u6\nAk5NLOjuHY+JMEK5AK57aUMfCe8Ele5+jD6r+1NAGVjItbgZvXmfhPwqeeo9zw58\n2P6tdwD2OSivAgMBAAGjggJRMIICTTAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYw\nFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFBOi\nS3LrhKvE3/eYFngk6kwsoOjMMB8GA1UdIwQYMBaAFN5yekjfMcOmUN+fhSPfVzdL\nXS5lMF0GCCsGAQUFBwEBBFEwTzAlBggrBgEFBQcwAYYZaHR0cDovL3N0Zy1yMy5v\nLmxlbmNyLm9yZzAmBggrBgEFBQcwAoYaaHR0cDovL3N0Zy1yMy5pLmxlbmNyLm9y\nZy8wGgYDVR0RBBMwEYIPYXBwNC5hcmNoZjUuY29tMEwGA1UdIARFMEMwCAYGZ4EM\nAQIBMDcGCysGAQQBgt8TAQEBMCgwJgYIKwYBBQUHAgEWGmh0dHA6Ly9jcHMubGV0\nc2VuY3J5cHQub3JnMIIBAwYKKwYBBAHWeQIEAgSB9ASB8QDvAHYA3Zk0/KXnJIDJ\nVmh9gTSZCEmySfe1adjHvKs/XMHzbmQAAAF4NmWsdwAABAMARzBFAiEA1/fezP7Z\n59LRt1suV8Sm00KRVqsvUSA+XoPh9zXdCmACICMavdKpelDzKpHkV9n5CbXERolx\nTG5QbNAbXUG0Vvz9AHUAsMyD5aX5fWuvfAnMKEkEhyrH6IsTLGNQt8b9JuFsbHcA\nAAF4NmWshQAABAMARjBEAiBe/NAu3v8te2JWgUdi9RVnoT2TmyOMTaidaQEO9Gp6\n5QIgJoHumgHHqzCfOdpr3HTGa5NBzAlDHQ/jODs2sxcbl9kwDQYJKoZIhvcNAQEL\nBQADggEBAI62g3jfdThFbU6udJsxJvcC9fHfAtZwce4kA9wCkOsxXT/7U5wTK2dX\naaYEZtnw5HE8ZrFqlSWgLGEeJzMsAnXUvIQ7n38Z8DxG7MUpF47TNLrTowkM7FZj\nHmuuSa6PY/psxPyLXrIQ9A2bej5X8zfKTtXV04wqdrrK5Zb+WBVgE80Xs2MKMakc\nzMFXwjGA7KHBq0Am/0QW0H1BB5xj/8KR7KNBugAEfQF8n9hgGPOstU37uiwZgbBW\nptSg1bBml9KfuPEakVV1AqzlnL6v6O58USfCMBdXItFX2TiPwYjzsfLO0URza6fr\neiDC6Rk7hwmfJgpy/577Et9x5cQhqjI=\n-----END CERTIFICATE-----",
+                  "privateKey": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAtAUU62NRSxbzJICbXg9xHtgpKUYQyUQKBmfgN8ielL/r2eEd\nMYkIPP9RouDHGsXyOOEUJpZ5ceOIUZMCNuSy3Os++ivD86zYgQQy0sHO2Wb9P/MG\nzO6W6ZrjgWawfLMFn37Fv38SONlhoh1a6Infji6V8nkOSwgiXHNNhblCP1R2KPQe\n+s5gjVVdAjgLxsITHo1e/WUKZQqwfsgAdPHKyksV+wb9XErahzrEnbYBEtKvgc6J\nvg2WA2uAe8zt191jhjpUXgtbugJOTSzo7h2PiTBCuQCue2lDHwnvBJXufow+q/tT\nQBlYyLW4Gb15n4T8KnnqPc8OfNj+rXcA9jkorwIDAQABAoIBAQCCb8QuonH+1Iws\ngLsStmGilcGNVGVJT/FrnsyJ3uV4pm9AGarLf5zmhaEjQXdC4PaXXA77vsAUU2cs\npDZQi/lFtXaWUivTXgQpx18D8sXsJIGPWoos5xuV/FKoKj3qvNRwMq0aCfqsEmZ5\nzodWQsAnB35CiJBgsW4kSq97GzbzJwoZJWeyG1tlzK5YWBjJyaAuQ5ib0/El+WY0\n4uYT/tBVOwaUDRLDrxqNMkfbA0Ii/2t4zsV/jI2Qlj/iUGjEZ/UU6Soll5kTmMbv\nM8QVLIyXhV3s7YRfGaNNZA/9hkrq9QN3wTU4/m6a87EuDhgiC2tDGdaDXC+Jc9HI\nm9PoYv3RAoGBAOSSU26NFBaHy0vPcazt8wULn79oYI85pciQXsNCl7EJ48RNw3JI\nc32c8x72cBUpHA+qY8lRzW8+itJtMPX5JxeICs3H/kMCCIZNP/lzpHn9ffiJlCaD\nk5ye3dH8XLpFVUKRRFtG/Ofq88jHTwzmnQXYgIb9EV0TAf4jGGTaNjc9AoGBAMmf\nQY3PUmJtFyaH1+2waq8xG8xq0vbfj36RG36mcDPCALel+hzTgUm4qrUj7hhNM9Lq\nSM7QtRafP8EQGzwQAQqStUW0vQvka6B4+QEn8XUCn549uVuIGW95VD9wqxqet9Qy\nEK5y3V4b0V/H6tPtlEZq9hGi85wOVd5kJibdCf5bAoGAG6oKJws0LzXoSRimbYOv\nMiEiCIydgzg69HdkwMVCjs7fnla7HQ3fzIg+dLTnA+ih2NOKmEcqUhiDvMwybNLn\nBFYW2KkoAPwyA+89mveAJLOll3svTyoFp6MivdOJdZIGq7PhThrdaURqlRZqXula\nf+agR7ZBb75pM1UUEsDGZxECgYEAtgf7pm20orp9OUNSFv29BBjhUShs+YiTxCB8\nY1cfXAtenG/UpWvrgUShktMypmwlStpNC7PwmtECPWsuO4bzeblEwf9Q4sjCxuoR\nXhLS8+J/e92cWOBCnps7Dd/KC0mbDJB68RUxeULCQKh9AgOwZ/cv3HJzYMSskBF5\nRIMx/5sCgYA+BIC91mHBtEP7ZqiCj9PN9XaTcX8/FBwTEdeOXkXaDuhCR9lNceGf\nns8QEPwDBwoXe8LxswMh4wXppLQobj3+/T1nD6ny8x81n8mGKDQ9wz8iTWaAlYDu\nLxXq31/kOqoijYp0evldo544ugGlkuQVX5vCMcxJHfLHTwQLWBiqfw==\n-----END RSA PRIVATE KEY-----\n"
+                },
+                "app4_pool": {
+                    "class": "Pool",
+                    "monitors": [
+                        "http"
+                    ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "aws",
+                            "updateInterval": 1,
+                            "tagKey": "Name",
+                            "tagValue": "nginx-autoscale",
+                            "addressRealm": "private",
+                            "region": "eu-west-1"
+                        }
+                    ]
+                },
+                "owaspPolicy-app4": {
+                    "class": "WAF_Policy",
+                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json?token=AG2GEJJNYTQVHGU4LFH2VMDAJ5X6S",
+                    "ignoreChanges": false,
+                    "enforcementMode": "blocking"
+                }
+            }
+        }
+    }
+}
