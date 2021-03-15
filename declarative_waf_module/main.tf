@@ -141,18 +141,18 @@ resource "local_file" "rendered_policy_with_suggestions" {
     waf_policy        = jsondecode(data.local_file.waf_policy.content)
     waf_modifications = lookup(merge(local.suggestions[0], local.suggestions[1]), local.suggestion_ids[count.index], "NO MATCH")
   })
-  filename = "${path.module}/output_files/rendered_policy_with_suggestions_${count.index}.json"
+  filename = "${path.module}/waf_policies/rendered_policy_with_suggestions_${count.index}.json"
 
   provisioner "local-exec" {
     when    = destroy
-    command = "rm -f ${path.module}/output_files/rendered_policy_with_suggestions_${count.index}.json"
+    command = "rm -f ${path.module}/waf_policies/rendered_policy_with_suggestions_${count.index}.json"
   }
 }
 
 data "local_file" "waf_policy_with_suggestions" {
   count = var.app_count
   depends_on = [local_file.rendered_policy_with_suggestions]
-  filename   = "${path.module}/output_files/rendered_policy_with_suggestions_${count.index}.json"
+  filename   = "${path.module}/waf_policies/rendered_policy_with_suggestions_${count.index}.json"
 }
 
 
