@@ -11,6 +11,7 @@ crash.log
 
 # my (Arch) output files, including rendered declarations and API responses
 output_files/*
+!output_files/.gitkeep 
 
 # Ignore any .tfvars files that are generated automatically for each Terraform run. Most
 # .tfvars files are managed as part of configuration and so should be included in
