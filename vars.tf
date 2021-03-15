@@ -61,13 +61,13 @@ variable "f5cs_gslb_zone" {
 
 variable "f5cs_creds" {
   description = "F5 Cloud Services credentials location"
-  default     = "../../../creds/f5cs_creds.json"
+  default     = "../creds/f5cs_creds.json"
   sensitive   = true
 }
 
 variable "f5sl_creds" {
   description = "F5 Silverline credentials location"
-  default     = "../../../creds/f5sl_creds.json"
+  default     = "../creds/f5sl_creds.json"
   sensitive   = true
 }
 
