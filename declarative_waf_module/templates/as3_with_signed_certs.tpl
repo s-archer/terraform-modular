@@ -65,7 +65,7 @@
                 }%{ if waf_enable == true },
                 "owaspPolicy-${app[0]}": {
                     "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json?token=AG2GEJJNYTQVHGU4LFH2VMDAJ5X6S",
+                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json,
                     "ignoreChanges": false,
                     "enforcementMode": "blocking"
                 }%{ endif }
