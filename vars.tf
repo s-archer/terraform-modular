@@ -1,6 +1,6 @@
 locals {
   // Determinbes how many BIG-IPs to deploy, across your AZs
-  bigip_count                  = 2
+  bigip_count = 2
   // The following counts should be set to [0|1] (on/off)
   cs_dns_module_count          = 1
   lets_encrypt_module_count    = 1

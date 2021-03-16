@@ -25,7 +25,7 @@
                     "pool": "app3_pool",
                     "serverTLS": "app3Tls",
                     "policyWAF": {
-                        "use": "owaspPolicy" 
+                        "use": "owaspPolicy-app3" 
                     }
                 },             
                 "app3Tls": {
@@ -65,7 +65,7 @@
                 },
                 "owaspPolicy-app3": {
                     "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json?token=AG2GEJJNYTQVHGU4LFH2VMDAJ5X6S",
+                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/rendered_policy_with_suggestions_1.json",
                     "ignoreChanges": false,
                     "enforcementMode": "blocking"
                 }
@@ -86,7 +86,7 @@
                     "pool": "app4_pool",
                     "serverTLS": "app4Tls",
                     "policyWAF": {
-                        "use": "owaspPolicy" 
+                        "use": "owaspPolicy-app4" 
                     }
                 },             
                 "app4Tls": {
@@ -126,7 +126,7 @@
                 },
                 "owaspPolicy-app4": {
                     "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json?token=AG2GEJJNYTQVHGU4LFH2VMDAJ5X6S",
+                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/rendered_policy_with_suggestions_1.json",
                     "ignoreChanges": false,
                     "enforcementMode": "blocking"
                 }

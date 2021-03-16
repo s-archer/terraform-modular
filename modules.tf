@@ -73,13 +73,13 @@ module "silverline_module" {
 }
 
 module "declarative_waf_module" {
-  source          = "./declarative_waf_module"
-  depends_on      = [module.lets_encrypt_module]
-  count           = local.declarative_waf_module_count
-  app_list        = module.lets_encrypt_module[*].app_list_eip_gslb_signed_certs
-  app_count       = length(var.app_list)
-  mgmt_ips        = module.bigip[*].mgmt_pub_ips.public_ip
-  f5_user         = var.f5_user
-  f5_pass         = module.bigip[*].f5_password
-  waf_enable      = true
+  source     = "./declarative_waf_module"
+  depends_on = [module.lets_encrypt_module]
+  count      = local.declarative_waf_module_count
+  app_list   = module.lets_encrypt_module[*].app_list_eip_gslb_signed_certs
+  app_count  = length(var.app_list)
+  mgmt_ips   = module.bigip[*].mgmt_pub_ips.public_ip
+  f5_user    = var.f5_user
+  f5_pass    = module.bigip[*].f5_password
+  waf_enable = true
 }

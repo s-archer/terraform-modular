@@ -25,7 +25,7 @@
                     "pool": "${app[0]}_pool",
                     "serverTLS": "${app[0]}Tls"%{ if waf_enable == true },
                     "policyWAF": {
-                        "use": "owaspPolicy" 
+                        "use": "owaspPolicy-${app[0]}" 
                     }%{ endif }
                 },             
                 "${app[0]}Tls": {
@@ -65,7 +65,7 @@
                 }%{ if waf_enable == true },
                 "owaspPolicy-${app[0]}": {
                     "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/owasp.json,
+                    "url": "${format("%s%s", "https://raw.githubusercontent.com/s-archer/terraform-modular/main/declarative_waf_module/waf_policies/", policy_file_name)}",
                     "ignoreChanges": false,
                     "enforcementMode": "blocking"
                 }%{ endif }
