@@ -4,6 +4,7 @@
   "template": {
     "name": "POLICY_TEMPLATE_RAPID_DEPLOYMENT"
   },
+  "applicationLanguage": "utf-8",
   "enforcementMode":"transparent",
   "protocolIndependent": true,
   "caseInsensitive": true,
