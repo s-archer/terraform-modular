@@ -4,10 +4,10 @@
   "template": {
     "name": "POLICY_TEMPLATE_RAPID_DEPLOYMENT"
   },
-  "applicationLanguage": "utf-8",
-  "enforcementMode":"transparent",
+  "enforcementMode":"blocking",
   "protocolIndependent": true,
   "caseInsensitive": true,
+  "applicationLanguage": "utf-8",
   "general": {
     "trustXff": true
   },

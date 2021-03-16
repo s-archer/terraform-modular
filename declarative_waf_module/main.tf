@@ -8,8 +8,9 @@ locals {
   ]
   suggestion_ids = [
     for each_file in data.local_file.create_export_suggestions[*].content :
-    jsondecode(each_file).id
+    jsondecode(each_file).id != "" ? jsondecode(each_file).id : "NO ID YET"
   ]
+
   suggestions = [
     for each_file in data.local_file.waf_suggestions[*].content : {
       for each_item in jsondecode(each_file).items :
@@ -18,6 +19,7 @@ locals {
     }
   ]
 }
+
 
 resource "null_resource" "get_waf_policies" {
   # This count uses the quantity of bigips
