@@ -5,11 +5,11 @@
                     "label": "my BIG-IP declaration for declarative onboarding",
                     "Common": {
                         "class": "Tenant",
-                        "hostname": "ec2-54-78-70-198.eu-west-1.compute.amazonaws.com",
+                        "hostname": "ec2-52-18-238-242.eu-west-1.compute.amazonaws.com",
                         "admin": {
                             "class": "User",
                             "userType": "regular",
-                            "password": "uZQ6cBYM0a",
+                            "password": "hDOB8YP2x6",
                             "shell": "bash"
                         },
                         "myDns": {
