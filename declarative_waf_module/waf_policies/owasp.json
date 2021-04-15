@@ -137,7 +137,12 @@
     "description": "A basic, OWASP Top 10 protection items v1.0",
     "enforcementMode": "blocking",
     "general": {
-      "trustXff": true
+      "trustXff": true,
+      "enforcementReadinessPeriod" : {
+        "maximum" : 0,
+        "minimum" : 0,
+        "type" : "integer"
+     }
     },
     "json-profiles": [
       {

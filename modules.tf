@@ -6,6 +6,7 @@ module "bigip" {
   max_ip_count_per_nic   = 2
   total_vs_ip_count      = length(var.app_list)
   waf_enable             = true
+  dns_enable             = local.bigip_dns_count > 0 ? true : false
   app_list               = var.app_list
   az                     = element(local.azs, count.index)
   cidr                   = "10.0.${count.index}.0/24"
@@ -20,6 +21,22 @@ module "bigip" {
   security_group_private = aws_security_group.private.id
   ssh_key_name           = aws_key_pair.demo.key_name
   vpc_id                 = module.vpc.vpc_id
+}
+
+module "bigip_dns" {
+
+  source             = "./bigip_dns_module"
+  depends_on         = [module.bigip]
+  count              = local.bigip_dns_count
+  app_list           = module.bigip[*].app_list_eip
+  app_count          = length(var.app_list)
+  pub_vs_eips_list   = module.bigip[*].pub_vs_eips_list
+  pub_mgmt_eips_list = module.bigip[*].pub_mgmt_eips_list
+  f5cs_gslb_zone     = var.f5cs_gslb_zone
+  f5_user            = var.f5_user
+  f5_pass            = module.bigip[*].f5_password
+  waf_enable         = false
+
 }
 
 module "cs_dns_module" {

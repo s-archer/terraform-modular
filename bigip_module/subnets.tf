@@ -88,6 +88,13 @@ locals {
     } if contains(local.pub_vs_ips_list, format("%s/%s", eip.private_ip, element(split("/", local.pub_cidrs[0]), 1)))
   ]  
 
+  pub_mgmt_eips_list = [
+    for eip in aws_eip.f5-mgmt[*] : {
+      private_ip = eip.private_ip
+      public_ip  = eip.public_ip
+      public_dns = eip.public_dns
+    } 
+  ]  
   # After the subnets are created, we can get the public subnet IDs
   pub_subnet_ids = slice(aws_subnet.auto_public[*].id, 1, length(aws_subnet.auto_public))
 

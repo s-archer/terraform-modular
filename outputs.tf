@@ -100,6 +100,10 @@ output "o37_app_links" {
   ]
 }
 
-# output "o38_debug_waf_policy_ids" {
-#   value = local.declarative_waf_module_count > 0 ? module.declarative_waf_module[*].waf_policy_ids : null
-# }
+output "o38_debug_waf_policy_ids" {
+  value = local.declarative_waf_module_count > 0 ? module.declarative_waf_module[*].waf_policy_ids : null
+}
+
+output "o39_debug_dns_module" {
+  value = module.bigip_dns[*].o39_debug_dns_module
+}

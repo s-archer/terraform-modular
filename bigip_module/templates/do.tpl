@@ -28,7 +28,8 @@
                         "myProvisioning": {
                             "class": "Provision",
                             "ltm": "nominal"%{ if waf_enable == true },
-                            "asm": "nominal"%{ endif }
+                            "asm": "nominal"%{ endif }%{ if dns_enable == true },
+                            "gtm": "nominal"%{ endif }
                         },
                         "internal-1": {
                             "class": "VLAN",

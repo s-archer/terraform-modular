@@ -73,7 +73,7 @@
                 "app3_challenge_irule": {
                     "class": "iRule",
                     "remark": "provide challenge to lets encrypt for app3",
-                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"86cmRTXYDP7dSpoG2zuq0n4FN_lpLkLgYs8pOCN72T4.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
+                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"I2IfNi_qZMRgeGjvGd16gS0_FdHsG8vuGJG68vaGgsg.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
                 },
                 "owaspPolicy": {
                     "class": "WAF_Policy",
@@ -146,7 +146,7 @@
                 "app4_challenge_irule": {
                     "class": "iRule",
                     "remark": "provide challenge to lets encrypt for app4",
-                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"ovk4_vLV_e2yFQPLlwPu2nAkAA5Q_onrutdztJwSU0s.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
+                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"Fk63IH7qlVh35tGkOdtJH7XK5141nerhxEvd-BSQw_0.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
                 },
                 "owaspPolicy": {
                     "class": "WAF_Policy",

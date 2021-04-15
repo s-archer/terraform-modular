@@ -5,11 +5,11 @@
                     "label": "my BIG-IP declaration for declarative onboarding",
                     "Common": {
                         "class": "Tenant",
-                        "hostname": "ec2-52-30-155-6.eu-west-1.compute.amazonaws.com",
+                        "hostname": "ec2-34-243-227-56.eu-west-1.compute.amazonaws.com",
                         "admin": {
                             "class": "User",
                             "userType": "regular",
-                            "password": "rtBWllFP0M",
+                            "password": "ekZJ0aRAsR",
                             "shell": "bash"
                         },
                         "myDns": {
@@ -28,7 +28,8 @@
                         "myProvisioning": {
                             "class": "Provision",
                             "ltm": "nominal",
-                            "asm": "nominal"
+                            "asm": "nominal",
+                            "gtm": "nominal"
                         },
                         "internal-1": {
                             "class": "VLAN",

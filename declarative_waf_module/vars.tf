@@ -37,3 +37,8 @@ variable "waf_enable" {
   description = "supplied by module parent"
   default     = ""
 }
+
+variable "waf_policy_lifecycle_stage" {
+  description = "supplied by module parent"
+  default     = ""
+}

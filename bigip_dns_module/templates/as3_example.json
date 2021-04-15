@@ -1,11 +1,12 @@
 {
+    "$schema": "https://raw.githubusercontent.com/F5Networks/f5-appsvcs-extension/master/schema/latest/as3-schema.json",
     "class": "AS3",
     "action": "deploy",
     "persist": true,
     "declaration": {
         "class": "ADC",
         "schemaVersion": "3.22.0",
-        "label": "Demo AWS v1.1",
+        "label": "Demo AWS v1.2",
         "remark": "Simple AS3 template for Terraform expansion",
         "demo_tenant": {
             "class": "Tenant",
@@ -16,30 +17,15 @@
                     "virtualPort": 443,
                     "redirect80": false,
                     "virtualAddresses": [
-                        "10.0.1.37"
+                        "10.0.0.37"
                     ],
                     "persistenceMethods": [],
                     "profileMultiplex": {
                         "bigip": "/Common/oneconnect"
                     },
                     "pool": "app3_pool",
-                    "serverTLS": "app3Tls",
-                    "policyWAF": {
-                        "use": "owaspPolicy" 
-                    }
+                    "serverTLS": "app3Tls"
                 },
-                "HTTP_app3": {
-                    "class": "Service_HTTP",
-                    "virtualPort": 80,
-                    "virtualAddresses": [
-                        "10.0.1.37"
-                    ],
-                    "persistenceMethods": [],
-                    "profileMultiplex": {
-                        "bigip": "/Common/oneconnect"
-                    },
-                    "iRules": [ "app3_challenge_irule" ]
-                },                
                 "app3Tls": {
                     "class": "TLS_Server",
                     "certificates": [
@@ -70,17 +56,46 @@
                         }
                     ]
                 },
-                "app3_challenge_irule": {
-                    "class": "iRule",
-                    "remark": "provide challenge to lets encrypt for app3",
-                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"I2IfNi_qZMRgeGjvGd16gS0_FdHsG8vuGJG68vaGgsg.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
+                "app3_domain": {
+                    "class": "GSLB_Domain",
+                    "domainName": "app3archf5.com",
+                    "resourceRecordType": "A",
+                    "poolLbMode": "ratio",
+                    "pools": [
+                                { "use": "app3_gslb_pool" }
+                    ]
                 },
-                "owaspPolicy": {
-                    "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/waf_policies/master/owasp.json",
-                    "ignoreChanges": false,
-                    "enforcementMode": "blocking"
-                }
+                "app3_gslb_pool": {
+                    "class": "GSLB_Pool",
+                    "enabled": true,
+                    "lbModeAlternate": "ratio",
+                    "lbModeFallback": "ratio",
+                    "manualResumeEnabled": true,
+                    "verifyMemberEnabled": false,
+                    "members": [
+                        {
+                            "ratio": 10,
+                            "server": {
+                                "use": "/Common/Shared/gslbServer1"
+                            },
+                            "virtualServer": "app3_vs_1"
+                        },
+                        {
+                            "ratio": 10,
+                            "server": {
+                                "use": "/Common/Shared/gslbServer2"
+                            },
+                            "virtualServer": "app3_vs_2"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "bigip": "/Common/http"
+                        }
+                    ],
+                    "resourceRecordType": "A",
+                    "fallbackIP": "1.1.1.1"
+                }            
             },
             "app4": {
                 "class": "Application",
@@ -89,30 +104,15 @@
                     "virtualPort": 443,
                     "redirect80": false,
                     "virtualAddresses": [
-                        "10.0.1.69"
+                        "10.0.0.69"
                     ],
                     "persistenceMethods": [],
                     "profileMultiplex": {
                         "bigip": "/Common/oneconnect"
                     },
                     "pool": "app4_pool",
-                    "serverTLS": "app4Tls",
-                    "policyWAF": {
-                        "use": "owaspPolicy" 
-                    }
+                    "serverTLS": "app4Tls"
                 },
-                "HTTP_app4": {
-                    "class": "Service_HTTP",
-                    "virtualPort": 80,
-                    "virtualAddresses": [
-                        "10.0.1.69"
-                    ],
-                    "persistenceMethods": [],
-                    "profileMultiplex": {
-                        "bigip": "/Common/oneconnect"
-                    },
-                    "iRules": [ "app4_challenge_irule" ]
-                },                
                 "app4Tls": {
                     "class": "TLS_Server",
                     "certificates": [
@@ -143,16 +143,103 @@
                         }
                     ]
                 },
-                "app4_challenge_irule": {
-                    "class": "iRule",
-                    "remark": "provide challenge to lets encrypt for app4",
-                    "iRule": "when HTTP_REQUEST {\nif { [HTTP::uri] starts_with \"/.well-known/acme-challenge/\" }\n{\nHTTP::respond 200 content \"Fk63IH7qlVh35tGkOdtJH7XK5141nerhxEvd-BSQw_0.A_DK9jmx9mvpCYCFlnfRs_uLdfH35cNkYiKgORdgsvg\"\n} else {\nHTTP::redirect https://[getfield [HTTP::host] \":\" 1]:443[HTTP::uri]\n}\n}"
+                "app4_domain": {
+                    "class": "GSLB_Domain",
+                    "domainName": "app4archf5.com",
+                    "resourceRecordType": "A",
+                    "poolLbMode": "ratio",
+                    "pools": [
+                                { "use": "app4_gslb_pool" }
+                    ]
                 },
-                "owaspPolicy": {
-                    "class": "WAF_Policy",
-                    "url": "https://raw.githubusercontent.com/s-archer/waf_policies/master/owasp.json",
-                    "ignoreChanges": false,
-                    "enforcementMode": "blocking"
+                "app4_gslb_pool": {
+                    "class": "GSLB_Pool",
+                    "enabled": true,
+                    "lbModeAlternate": "ratio",
+                    "lbModeFallback": "ratio",
+                    "manualResumeEnabled": true,
+                    "verifyMemberEnabled": false,
+                    "members": [
+                        {
+                            "ratio": 10,
+                            "server": {
+                                "use": "/Common/Shared/gslbServer1"
+                            },
+                            "virtualServer": "app4_vs_1"
+                        },
+                        {
+                            "ratio": 10,
+                            "server": {
+                                "use": "/Common/Shared/gslbServer2"
+                            },
+                            "virtualServer": "app4_vs_2"
+                        }
+                    ],
+                    "monitors": [
+                        {
+                            "bigip": "/Common/http"
+                        }
+                    ],
+                    "resourceRecordType": "A",
+                    "fallbackIP": "1.1.1.1"
+                }
+            }
+        },
+        "Common": {
+            "class": "Tenant",
+            "Shared": {
+                "class": "Application",
+                "template": "shared",
+                "aws1": {
+                    "class": "GSLB_Data_Center"
+                },
+                "gslbServer1": {
+                    "class": "GSLB_Server",
+                    "dataCenter": {
+                        "use": "aws1"
+                    },
+                    "devices": [
+                        {
+                            "address": "54.74.161.195",
+                            "addressTranslation": "10.0.0.37" 
+                        }
+                    ],
+                    "virtualServers": [
+                        {
+                            "address": "10.0.0.37",
+                            "port": 80,
+                            "name": "app3_vs_1"
+                        },
+                        {
+                            "address": "10.0.0.69",
+                            "port": 80,
+                            "name": "app4_vs_1"
+                        }
+                    ]
+                },
+                "gslbServer2": {
+                    "class": "GSLB_Server",
+                    "dataCenter": {
+                        "use": "aws1"
+                    },
+                    "devices": [
+                        {
+                            "address": "54.217.161.249",
+                            "addressTranslation": "10.0.1.37" 
+                        }
+                    ],
+                    "virtualServers": [
+                        {
+                            "address": "10.0.1.37",
+                            "port": 80,
+                            "name": "app3_vs_2"
+                        },
+                        {
+                            "address": "10.0.1.69",
+                            "port": 80,
+                            "name": "app4_vs_2"
+                        }
+                    ]
                 }
             }
         }

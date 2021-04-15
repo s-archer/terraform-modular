@@ -20,14 +20,14 @@
                     {
                         "ttl": 60,
                         "type": "CNAME",
-                        "value": "app3.gslb-vnh.archf5.com"
+                        "value": "app3.gslb-bkd.archf5.com"
                     }
                 ],
 				"app4": [
                     {
                         "ttl": 60,
                         "type": "CNAME",
-                        "value": "app4.gslb-dii.archf5.com"
+                        "value": "app4.gslb-ken.archf5.com"
                     }
                 ],
                 "test": [

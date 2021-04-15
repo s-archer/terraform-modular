@@ -77,7 +77,13 @@ variable "app_list" {
     description = "supplied by module parent"
     default     = []
 }
+
 variable "waf_enable" {
+    description = "supplied by module parent"
+    default     = ""
+}
+
+variable "dns_enable" {
     description = "supplied by module parent"
     default     = ""
 }

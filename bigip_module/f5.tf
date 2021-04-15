@@ -55,7 +55,7 @@ resource "aws_eip" "f5-pub" {
   vpc                       = true
 
   tags = {
-    Name    = "${var.prefix}-1-pub-[count.index]"
+    Name    = "${var.prefix}-1-pub-${count.index}"
     priv_ip = local.pub_ips_list[count.index]
   }
 }
@@ -83,8 +83,9 @@ resource "local_file" "do" {
     external_ips = local.pub_self_ips_list,
     internal_ip  = local.priv_ips[0],
     internal_gw  = cidrhost(local.priv_cidrs[0], 1),
-    cidr         = "10.0.0.0/16"
-    waf_enable   = var.waf_enable
+    cidr         = "10.0.0.0/16",
+    waf_enable   = var.waf_enable,
+    dns_enable   = var.dns_enable
   })
   filename = "${path.module}/output_files/${var.prefix}-rendered_do.json"
 }
@@ -96,8 +97,9 @@ data "template_file" "do" {
     external_ips = local.pub_self_ips_list,
     internal_ip  = local.priv_ips[0],
     internal_gw  = cidrhost(local.priv_cidrs[0], 1),
-    cidr         = "10.0.0.0/16"
-    waf_enable   = var.waf_enable
+    cidr         = "10.0.0.0/16",
+    waf_enable   = var.waf_enable,
+    dns_enable   = var.dns_enable
   })
 }
 

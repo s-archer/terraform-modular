@@ -46,6 +46,10 @@ output "pub_vs_eips_list" {
   value = local.pub_vs_eips_list
 }
 
+output "pub_mgmt_eips_list" {
+  value = local.pub_mgmt_eips_list
+}
+
 output "mgmt_subnet_ids" {
   value = local.mgmt_subnet_ids
 }
